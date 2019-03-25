@@ -28,7 +28,17 @@ void nomeia(struct pessoa *primer){
     printf("diga o cpf:");
     scanf("%d", &primer->cpf);
 }
-
+void imprime(struct pessoa *primer){
+    printf("nome:");
+    printf("%s\n", primer->nome);
+    printf("aniversario:");
+    printf("%d", &primer->niver.dia);
+    printf("/");
+    printf("%d", &primer->niver.mes);
+    printf("/");
+    printf("%d\n", &primer->niver.ano);
+    printf("diga o cpf:");
+    printf("%d", &primer->cpf);
 int main(){
     struct pessoa *primer;
     primer = (struct *pessoa)malloc(sizeof(struct pessoa));
