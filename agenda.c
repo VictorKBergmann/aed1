@@ -16,7 +16,7 @@ void* adiciona(void *pBuffer,int cpm, int *c, int cp*,float *a){
     a = cp + 1;
 
     printf("nome:");
-    scanf("%s",)
+    scanf("%s")
 }
 
 
