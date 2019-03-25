@@ -31,7 +31,7 @@ void nomeia(struct pessoa *primer){
 
 int main(){
     struct pessoa *primer;
-    primer = (struct pessoa)malloc(sizeof(struct pessoa));
+    primer = (struct *pessoa)malloc(sizeof(struct pessoa));
     nomeia(primer);
     return 0;
 }
