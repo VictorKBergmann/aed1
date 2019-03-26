@@ -8,15 +8,15 @@ struct pessoa{
     };
 
 
-void* adiciona(void *pBuffer,int cpm, int *c, int cp*,float *a){
+void* adiciona(void *pBuffer,int *cp, int *c, float *a){
     struct pessoa *novo;
-    cp* ++;
-    pBuffer = realloc( pBuffer, sizeof(int)*2)+sizeof(float)+(cp*sizeof(pessoa));
-    c = (int)pBuffer;
+    cp ++;
+    pBuffer = (void*) realloc ( pBuffer, sizeof(int)*2+sizeof(float)+(cp*(sizeof(pessoa)));
+    c = (int*)pBuffer;
     cp = c + 1;
-    a = cp + 1;
+    a = (float*)((int*)cp) + 1;
 
-    novo = a + (pessoa* ( cp ) );
+    novo = (struct pessoa*) (a + (sizeof(pessoa* ( cp ) ));
 
     printf("nome:");
     scanf("%s",*novo->nome);
@@ -52,7 +52,7 @@ int main(){
 
     printf("(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:");
     switch(*c){
-    case 1:adiciona(pBuffer);
+    case 1:adiciona(pBuffer,cp,c,a);
 
     case 4:lista(pBuffer,c,init,cp);
     }
