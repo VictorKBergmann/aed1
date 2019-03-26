@@ -9,28 +9,48 @@ struct pessoa{
 
 
 void* adiciona(void *pBuffer,int cpm, int *c, int cp*,float *a){
+    struct pessoa *novo;
     cp* ++;
     pBuffer = realloc( pBuffer, sizeof(int)*2)+sizeof(float)+(cp*sizeof(pessoa));
     c = (int)pBuffer;
     cp = c + 1;
     a = cp + 1;
 
-    printf("nome:");
-    scanf("%s")
-}
+    novo = a + (pessoa* ( cp ) );
 
+    printf("nome:");
+    scanf("%s",*novo->nome);
+    printf("idade:");
+    scanf("%d",*novo->idade);
+    printf("matricula:");
+    scanf("%d",*novo->mat);
+
+    return pBuffer;
+    }
+
+void lista(void *pBuffer, int *c, struct pessoa *init,int *cp){
+
+    for(*c=0 ; *c!=*cp ; *c++ ){
+
+
+
+    }
+
+
+
+}
 
 int main(){
     void *pBuffer;
     int *c,*cp;
     float *a;
+    struct pessoa *init;
     pBuffer = malloc((sizeof(int)*2)+sizeof(float));
 
     printf("(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:");
     switch(*c){
     case 1:adiciona(pBuffer);
-    case 2:retira(pBuffer);
-    case 3:procura(pBuffer);
-    case 4:lista(pBuffer);
+
+    case 4:lista(pBuffer,c,init,cp);
     }
 }
