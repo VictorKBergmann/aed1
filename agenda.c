@@ -28,23 +28,26 @@ void* adiciona(void *pBuffer,int cpm, int *c, int cp*,float *a){
     return pBuffer;
     }
 
-void lista(void *pBuffer, int *c, struct pessoa *init,int *cp){
+void lista(void *pBuffer, int *c, struct pessoa *init,int *cp,struct pessoa *fw){
 
+    fw= init;
     for(*c=0 ; *c!=*cp ; *c++ ){
-
-
-
+	printf("nome:%s\n",*fw->nome);
+	printf("idade:%d\n",*fw->idade);
+	printf("matricula:%d\n",*fw->matricula);
+	
+	fw++;
     }
 
-
-
 }
+
+
 
 int main(){
     void *pBuffer;
     int *c,*cp;
     float *a;
-    struct pessoa *init;
+    struct pessoa *init,*fw;
     pBuffer = malloc((sizeof(int)*2)+sizeof(float));
 
     printf("(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:");
