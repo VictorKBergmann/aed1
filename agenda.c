@@ -32,5 +32,6 @@ int main(){
     case 2:retira(pBuffer);
     case 3:procura(pBuffer);
     case 4:lista(pBuffer);
+
     }
 }
