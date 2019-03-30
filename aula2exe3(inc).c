@@ -10,14 +10,14 @@ criadas acima.*/
 #include<stdlib.h>
 
 
-void* maloc(int *i; int *t){
+int** maloc(int *i, int *t){
 	int **p,m,n;
-	printf("diga quantas linhas:"); scanf("%d",&i);
-	p=((int **)malloc((sizeof(int*))*i));
-	printf("diga quantas colunas:"); scanf("%d",&t);
-	for(m=0;m!=i;m++){
-		p[m]=(int*)malloc(sizeof(int)*t);
-		for(n=0;n!=i;n++){
+	printf("diga quantas linhas:"); scanf("%d",i);
+	p=((int **)malloc((int)(sizeof(int*))*(*i)));
+	printf("diga quantas colunas:"); scanf("%d",t);
+	for(m=0;m!=*i;m++){
+		p[m]=(int*)malloc(sizeof(int)*(*t));
+		for(n=0;n!=*i;n++){
 			p[m][n]= rand()%501;
 		}
 
@@ -25,9 +25,12 @@ void* maloc(int *i; int *t){
 return p;
 }
 
-void print(int t,int i,int **p){
-	for(;t!=0;t--){
-		for(;0!=i;i--){
+void print(int *t,int *i,int **p){
+	int m,n;
+	m=*t;
+	n=*i;
+	for(;m!=0;m--){
+		for(;0!=n;n--){
 			printf("%d    ",p[m][n]);
 		}
 		printf("\n");
@@ -36,10 +39,10 @@ void print(int t,int i,int **p){
 }
 
 
-void fre(int **p,int t){
+void fre(int **p,int *t){
 
-	for(;t!=0;t--){
-		free(*p[t]);
+	for(;*t!=0;*t--){
+		free(p[*t]);
 
 	}
 	free(p);
@@ -51,13 +54,15 @@ int main(){
 
 	printf("1)criar matriz aleatoria:\n2)printar\n3)fechar programa");
 	scanf("%d",&o);
-	swith(o){
+	switch(o){
 		case 1:
 		p = maloc(&i,&t);
 		
 		case 2:
 		print(&t,&i,p);
 
-		case 3:fre(p,&t)
-	}
+		case 3:
+		fre(p,&t);
+		return 0;
+	}	
 }
