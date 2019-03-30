@@ -1,4 +1,4 @@
-/*Criar um tipo abstrato de dados que represente uma pessoa, contendo nome, data de
+/*5) Criar um tipo abstrato de dados que represente uma pessoa, contendo nome, data de
 nascimento e CPF. Crie uma variável que é um ponteiro para este TAD (no programa
 principal). Depois crie uma função que receba este ponteiro e preencha os dados da
 estrutura e também uma uma função que receba este ponteiro e imprima os dados da
@@ -30,19 +30,23 @@ void nomeia(struct pessoa *primer){
 }
 void imprime(struct pessoa *primer){
     printf("nome:");
-    printf("%s\n", primer->nome);
+    printf("%s\n", (*primer).nome);
     printf("aniversario:");
-    printf("%d", &primer->niver.dia);
+    printf("%d",(*primer).niver.dia);
     printf("/");
-    printf("%d", &primer->niver.mes);
+    printf("%d", (*primer).niver.mes);
     printf("/");
-    printf("%d\n", &primer->niver.ano);
+    printf("%d\n", (*primer).niver.ano);
     printf("diga o cpf:");
-    printf("%d", &primer->cpf);
+    printf("%d", (*primer).cpf);
+    
+}
+
+
 int main(){
     struct pessoa *primer;
-    primer = (struct *pessoa)malloc(sizeof(struct pessoa));
+    primer = (struct pessoa*)malloc(sizeof(struct pessoa));
     nomeia(primer);
+    imprime(primer);
     return 0;
 }
-    
