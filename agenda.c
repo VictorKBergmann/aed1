@@ -11,12 +11,12 @@ typedef struct{
 void* adiciona(void *pBuffer,int *cp, int *c, float *a){
     pessoa *novo;
     cp ++;
-    pBuffer = (void*) realloc ( pBuffer, sizeof(int)*2+sizeof(float)+((cp)*(int*)(sizeof(*novo))));
+    pBuffer = realloc ( pBuffer, sizeof(int)*2+sizeof(float)+(*cp)*(sizeof(pessoa)	)	);
     c = (int*)pBuffer;
-    cp = c + 1;
-    a = (float*)((int*)cp) + 1;
-
-    novo = (struct pessoa*)(a + ((int*)(sizeof(pessoa*)) * ( cp ) ));
+    cp =(int*)c + 1;
+    a = (float*)cp + 1;
+	
+    novo = (pessoa*)(a + ((int)(sizeof(pessoa)) * ( *cp ) ));
 
     printf("nome:");
     scanf("%s",(*novo).nome);
@@ -45,15 +45,28 @@ void lista(void *pBuffer, int *c, pessoa *init,int *cp, pessoa *fw){
 
 int main(){
     void *pBuffer;
-    int *c,*cp;
+    int *c,*cp=0;
     float *a;
     pessoa *init,*fw;
     pBuffer = malloc((sizeof(int)*2)+sizeof(float));
-
-    printf("(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:");
+	c=pBuffer;
+	cp =(int*)c + 1;
+    a = (float*)cp + 1;
+	
+    printf("(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:\n(4)lista:\n");
+    scanf("%d",&*c);
+  
+  
+  	do{
+  	
     switch(*c){
-    case 1:adiciona(pBuffer,cp,c,a);
-
+	
+    case 1:
+	adiciona(pBuffer,cp,c,a);
+	break;
     case 4:lista(pBuffer,c,init,cp,fw);
-    }
+    break;
+	}
+    return 0;
+}while(*c!=5);
 }
