@@ -7,13 +7,14 @@ void imprimeBuffer(void *pBuffer, unsigned int nTotal){
     void *aut;
     tam= sizeof(int)+sizeof(float)+sizeof(double);
     aut = pBuffer;
-    for(aux = 0;aux!=nTotal;aux++){
+    for(;nTotal!=0;nTotal--){
 
        printf("%d	",*(int*)aut);
-       (int *)aut++;
+       aut+=sizeof(int);
        printf("%f	",*(float*)aut);
-       (float*)aut++;
-       printf("%lf\n",*(double*)aut);
+       aut+=sizeof(float);
+       printf("%lf  \n",*(double*)aut);
+       aut+=sizeof(double);
 	printf("fo2i\n");
 
     }
@@ -27,10 +28,11 @@ void *cria(unsigned int nTotal){
     for(;nTotal!=0;nTotal--){
 
             *(int*)aux =(10000);
-            (int*)aux++;
+            aux+=sizeof(int);
             *(float*)aux =(10000);
-            (float*)aux++;
-            *(double*)aux = (double)(10000);
+            aux+=sizeof(float);
+            *(double*)aux =(10000);
+            aux+=sizeof(double);3
     }
 	printf("foi\n");
     return maloc;
