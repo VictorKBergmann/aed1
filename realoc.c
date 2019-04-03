@@ -1,17 +1,18 @@
-
 #include <stdlib.h>
 #include <stdio.h>
-
-#include <cstring>
+#include <string.h>
 
 void* realoc(void* maloc, int size) {
 	void *reaoc;
 	reaoc = (void*)malloc(size);
-	std::mencpy(reaoc, maloc, size);
+	memcpy(reaoc, maloc, size);
 
 	free(maloc);
 	return reaoc;
 }
+
+/*main foi tirada de um exemplo de onde o realloc pode ser util
+http://www.cplusplus.com/reference/cstdlib/realloc/?kw=realloc*/
 
 int main()
 {
@@ -23,7 +24,7 @@ int main()
 	do {
 		printf("Enter an integer value (0 to end): ");
 		scanf("%d", &input);
-		count++;
+		
 
 		more_numbers = (int*)realoc(numbers, count * sizeof(int));
 
@@ -34,8 +35,9 @@ int main()
 		else {
 			free(numbers);
 			puts("Error (re)allocating memory");
-			exit(1);
+			exit(3);
 		}
+		count++;
 	} while (input != 0);
 
 	printf("Numbers entered: ");
