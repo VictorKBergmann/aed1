@@ -12,13 +12,13 @@ criadas acima.*/
 
 int** maloc(int *i, int *t){
 	int **p,m,n;
-	printf("diga quantas linhas:"); scanf("%d",i);
+	printf("diga quantas colunas:"); scanf("%d",i);
 	p=((int **)malloc((int)(sizeof(int*))*(*i)));
-	printf("diga quantas colunas:"); scanf("%d",t);
+	printf("diga quantas linhas:"); scanf("%d",t);
 	for(m=0;m!=*i;m++){
 		p[m]=(int*)malloc(sizeof(int)*(*t));
-		for(n=0;n!=*i;n++){
-			p[m][n]= rand()%501;
+		for(n=0;n!=*t;n++){
+			p[m][n]= m;
 		}
 
 	}
@@ -29,11 +29,12 @@ void print(int *t,int *i,int **p){
 	int m,n;
 	m=*t;
 	n=*i;
-	for(;m!=0;m--){
-		for(;0!=n;n--){
+	for(m=0;m!=*i;m++){
+		printf("\n");
+		for(n=0;n!=*t;n++){
 			printf("%d    ",p[m][n]);
 		}
-		printf("\n");
+
 	}
 
 }
@@ -57,12 +58,12 @@ int main(){
 	switch(o){
 		case 1:
 		p = maloc(&i,&t);
-		
+
 		case 2:
 		print(&t,&i,p);
 
 		case 3:
 		fre(p,&t);
 		return 0;
-	}	
+	}
 }
