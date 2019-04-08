@@ -5,65 +5,42 @@ parametros m e n aloque uma matriz de ordem m x n e retorne um ponteiro para est
 matriz alocada. Crie ainda uma função para liberar a área de memória alocada pela
 matriz. Finalmente, crie um novo programa (main) que teste/use as duas funções
 criadas acima.*/
-
 #include<stdio.h>
-#include<stdlib.h>
+#include<malloc.h>
 
 
-int** maloc(int *i, int *t){
-	int **p,m,n;
-	printf("diga quantas colunas:"); scanf("%d",i);
-	p=((int **)malloc((int)(sizeof(int*))*(*i)));
-	printf("diga quantas linhas:"); scanf("%d",t);
-	for(m=0;m!=*i;m++){
-		p[m]=(int*)malloc(sizeof(int)*(*t));
-		for(n=0;n!=*t;n++){
+
+int main(){
+	int **p,i,t,m,n;
+	
+
+	printf("diga quantas linhas:"); scanf("%d",&t);
+	printf("diga quantas colunas:"); scanf("%d",&i);
+	p=((int **)malloc((int)(sizeof(int*))*(t)));
+	for(m=0;m<t;m++){
+		p[m]=(int*)malloc(sizeof(int)*(i));
+		for(n=0;n<i;n++){
 			p[m][n]= m;
+			printf("%d", p[m][n]);
 		}
 
+	
 	}
-return p;
-}
 
-void print(int *t,int *i,int **p){
-	int m,n;
-	m=*t;
-	n=*i;
-	for(m=0;m!=*i;m++){
+	for(m=0;m<i;m++){
 		printf("\n");
-		for(n=0;n!=*t;n++){
+		for(n=0;n<t;n++){
 			printf("%d    ",p[m][n]);
 		}
 
 	}
 
-}
-
-
-void fre(int **p,int *t){
-
-	for(;*t!=0;*t--){
-		free(p[*t]);
+	for(;t<0;t--){
+		free(p[t]);
 
 	}
 	free(p);
-}
 
 
-int main(){
-	int **p,i,t,o;
-
-	printf("1)criar matriz aleatoria:\n2)printar\n3)fechar programa");
-	scanf("%d",&o);
-	switch(o){
-		case 1:
-		p = maloc(&i,&t);
-
-		case 2:
-		print(&t,&i,p);
-
-		case 3:
-		fre(p,&t);
-		return 0;
-	}
+	return 0 ;
 }
