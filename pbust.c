@@ -46,6 +46,7 @@ int main(){
 
     pBuffer = cria(nTotal);
     imprimeBuffer(pBuffer,nTotal);
-   
+    free(pBuffer);
+	
     return 0;
 }
