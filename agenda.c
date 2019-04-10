@@ -8,37 +8,36 @@ typedef struct{
     }pessoa ;
 
 
-void* adiciona(void *pBuffer,int *cp, int *c, float *a){
+int *c,*cp;
+void *pBuffer;
+pessoa *fw;
+
+
+void adiciona(){
     pessoa *novo;
     *cp+=1;
-    pBuffer = realloc ( pBuffer, sizeof(int)*2+sizeof(float)+(*cp)*(sizeof(pessoa)	)	);
+    pBuffer = realloc ( pBuffer, sizeof(int)*2+(*cp)*(sizeof(pessoa)	)	);
     c = (int*)pBuffer;
     cp =(int*)c + 1;
-    a = (float*)cp + 1;
-	*c = (sizeof(pessoa)) * ( *cp );
-    novo = (pessoa*)(a + (*c));
+    fw = (int*)cp + 1;
+    novo = fw + ( *cp - 1 );
+
 
     printf("nome:");
-    scanf("%s",(*novo).nome);
+    scanf(" %s",novo->nome);
     printf("idade:");
-    scanf("%d",&(*novo).idade);
+    scanf("%d",&novo->idade);
     printf("matricula:");
-    scanf("%d",&(*novo).mat);
+    scanf("%d",&novo->mat);
 
-    return pBuffer;
     }
 
-void lista(void *pBuffer, int *c,int *cp, pessoa *fw){
-
-    fw = (pessoa*)pBuffer;
-    fw+=(sizeof(int))*2+sizeof(float);
+void lista(){
 
     for(*c=0 ; *c!=*cp ; (*c)++ ){
-	printf("nome:%s\n",(*fw).nome);
-	printf("idade:%d\n",(*fw).idade);
-	printf("matricula:%d\n",(*fw).mat);
-
-	fw++;
+	printf("\nnome:%s\n",(fw+(*c))->nome);
+	printf("idade:%d\n",(fw+(*c))->idade);
+	printf("matricula:%d\n\n",(fw+(*c))->mat);
     }
 
 }
@@ -46,16 +45,12 @@ void lista(void *pBuffer, int *c,int *cp, pessoa *fw){
 
 
 int main(){
-    void *pBuffer;
-    int *c,*cp;
 
-    float *a;
-    pessoa *fw;
-    pBuffer = malloc((sizeof(int)*2)+sizeof(float));
+    pBuffer = malloc((sizeof(int)*2));
 	c=pBuffer;
 	cp =(int*)c + 1;
+	fw = (int*)cp + 1;
     *cp = 0;
-    a = (float*)cp + 1;
 
 
   	do{
@@ -65,14 +60,15 @@ int main(){
         switch(*c){
 
           case 1:
-                pBuffer= adiciona(pBuffer,cp,c,a);
+                adiciona();
             break;
             case 4:
-                lista(pBuffer,c,cp,fw);
+                lista();
             break;
 
             default:
-            return 0;
+                return 0;
+
             break;
 	        }
 
