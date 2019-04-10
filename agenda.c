@@ -19,7 +19,7 @@ void adiciona(){
     pBuffer = realloc ( pBuffer, sizeof(int)*2+(*cp)*(sizeof(pessoa)	)	);
     c = (int*)pBuffer;
     cp =(int*)c + 1;
-    fw = (int*)cp + 1;
+    fw = (pessoa*)cp + 1;
     novo = fw + ( *cp - 1 );
 
 
@@ -49,7 +49,7 @@ int main(){
     pBuffer = malloc((sizeof(int)*2));
 	c=pBuffer;
 	cp =(int*)c + 1;
-	fw = (int*)cp + 1;
+	fw = (pessoa*)cp + 1;
     *cp = 0;
 
 
