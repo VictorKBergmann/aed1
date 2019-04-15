@@ -5,7 +5,7 @@
 
 typedef struct{
     char nome[20];
-    int idade, mat,id;
+    int idade, mat;
     }pessoa ;
 
 
@@ -13,7 +13,39 @@ int *c,*cp,*i;
 void *pBuffer;
 pessoa *fw;
 
+void inicializa(){
 
+    pessoa *novo;
+
+    pBuffer = malloc (sizeof(int)*3+(sizeof(char)*20)+(4)*(sizeof(pessoa)    )	);
+    c = (int*)pBuffer;
+    cp =(int*)c + 1;
+    *cp = 4;
+    i = cp + 1;
+    fw = (pessoa*)(i + 1);
+    novo = fw;
+
+    strcpy( novo->nome ,"1");
+    novo->idade = 1;
+    novo->mat = 1;
+    novo ++;
+
+    strcpy( novo->nome ,"2");
+    novo->idade = 2;
+    novo->mat = 2;
+    novo ++;
+
+    strcpy( novo->nome ,"admin");
+    novo->idade = 1;
+    novo->mat = 1;
+    novo ++;
+
+    strcpy( novo->nome ,"Victor");
+    novo->idade = 19;
+    novo->mat = 18104996;
+
+
+}
 void adiciona(){
     pessoa *novo;
     *cp+=1;
@@ -24,7 +56,6 @@ void adiciona(){
     fw = (pessoa*)(i + 1);
     novo = fw + ( *cp - 1 );
 
-	novo->id = *cp - 1;
     printf("nome:");
     scanf(" %s",novo->nome);
     printf("idade:");
@@ -74,11 +105,11 @@ void pesquisa(){
 	*i = 0;
 	for((*c)=0;(*c) != *cp; (*c)++){
 		if (strcmp( (fw+(*c))->nome,novo->nome ) == 0 && *i == 0) {
-			printf("\nid:%d",(fw+(*c))->id);
+			printf("\nid:%d",(*c));
 			printf("\nnome:%s\n",(fw+(*c))->nome);
 			printf("idade:%d\n",(fw+(*c))->idade);
 			printf("matricula:%d\n\n",(fw+(*c))->mat);
-			*i = -1;
+			*i = -1 ;
 		}
 	}
     if(*i != -1){
@@ -94,7 +125,7 @@ void lista(){
 
     else{
         for(*c=0 ; *c!=*cp ; (*c)++ ){
-            printf("\n|id:%d",(fw+(*c))->id);
+            printf("\n|id:%d",*c);
             printf("\n|nome:%s\n",(fw+(*c))->nome);
             printf("|idade:%d\n",(fw+(*c))->idade);
             printf("|matricula:%d\n\n",(fw+(*c))->mat);
@@ -107,13 +138,7 @@ void lista(){
 
 int main(){
 
-    pBuffer = malloc((sizeof(int)*2));
-	c=(int*)pBuffer;
-	cp =(int*)c + 1;
-    i = cp + 1;
-	fw = (pessoa*)i + 1;
-    *cp = 0;
-
+    inicializa();
 
   	do{
   	    printf("-----------\n   MENU\n-----------\n(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:\n(4)lista:\n(5)sair:\n--------\n    ");
