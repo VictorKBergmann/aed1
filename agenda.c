@@ -40,16 +40,16 @@ void remover(){
 	printf("nome:");
     scanf(" %s",novo->nome);
 
-    for(*c=0 ;*c != (*cp) && *i != -1 ; (*c)++){
+    for(*c=1 ;*c != (*cp)+1 && *i != -1 ; (*c)++){
 
         if(strcmp( (fw+(*c))->nome,novo->nome ) == 0 ){
-
+            (*cp)-=1;
             while( *c != *cp){
                 strcpy( (fw+( *c - 1 ))->nome , (fw+( *c ))->nome );
 	    		*c+=1;
 	    	}
 	    	*i = -1;
-	    	(*cp)-=1;
+
 	    	pBuffer = realloc ( pBuffer, sizeof(int)*3+(*cp + 1)*(sizeof(pessoa)	)	);
             c = (int*)pBuffer;
             cp =(int*)c + 1;
