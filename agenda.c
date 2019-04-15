@@ -36,11 +36,11 @@ void adiciona(){
 
 void remover(){
 	pessoa *novo;
-	novo = fw + ( *cp + 1 );
+	novo = fw + ( *cp );
 	printf("nome:");
     scanf(" %s",novo->nome);
 
-    for(*c=1 ;*c != (*cp)+1 && *i != -1 ; (*c)++){
+    for(*c= 0;*c != (*cp) && *i != -1 ; (*c)++){
 
         if(strcmp( (fw+(*c))->nome,novo->nome ) == 0 ){
             (*cp)-=1;
