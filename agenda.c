@@ -57,7 +57,7 @@ void remover(){
             fw = (pessoa*)(i + 1);
         }
 	}
-    if(*i = -1){
+    if(*i == -1){
         printf("retirado com sucesso!<3\n");
     }
     else{
@@ -116,7 +116,7 @@ int main(){
 
 
   	do{
-  	    printf("--------\n   MENU\n--------\n(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:\n(4)lista:\n(5)sair:\n--------\n    ");
+  	    printf("-----------\n   MENU\n-----------\n(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:\n(4)lista:\n(5)sair:\n--------\n    ");
         scanf("%d",&*i);
 
         switch(*i){
