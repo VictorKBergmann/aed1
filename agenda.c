@@ -4,20 +4,21 @@
 #include <string.h>
 
 typedef struct{
-    char nome[20];
+    char nome;
     int idade, mat;
     }pessoa ;
 
 
-int *c,*cp,*i;
+int *c,*cp,*i,*n;
 void *pBuffer;
-pessoa *fw;
+pessoa *fw,*novo;
+char *name;
 
-void inicializa(){
+/*void inicializa(){
 
     pessoa *novo;
 
-    pBuffer = malloc (sizeof(int)*3+(sizeof(char)*20)+(4)*(sizeof(pessoa)    )	);
+    pBuffer = malloc (sizeof(int)*4 + sizeof(char)*((*n)+20) +(5)*(sizeof(pessoa)    )	);
     c = (int*)pBuffer;
     cp =(int*)c + 1;
     *cp = 4;
@@ -44,26 +45,56 @@ void inicializa(){
     novo->idade = 19;
     novo->mat = 18104996;
 
+*/
 
-}
+                                                                  //pode ta errado o cp+1
 void adiciona(){
-    pessoa *novo;
     *cp+=1;
-    pBuffer = realloc ( pBuffer, sizeof(int)*3+(*cp + 1)*(sizeof(pessoa)	)	);
+    
+
+    printf("nome:");
+    scanf(" %s", *temp );
+    *n = *n + strlen( *temp );
+
+    pBuffer = realloc ( pBuffer, sizeof(char)*((*n)+20) + sizeof(int)*4 + ( *cp + 1 )*( sizeof(pessoa) ) );
     c = (int*)pBuffer;
     cp =(int*)c + 1;
     i = cp + 1;
-    fw = (pessoa*)(i + 1);
+    n = i + 1
+    fw = (pessoa*)(n + 1);
     novo = fw + ( *cp - 1 );
+    temp = (char*)novo + 1;
+    fw.nome = temp;
 
-    printf("nome:");
-    scanf(" %s",novo->nome);
+    for(; fw[*i] != fw[*cp] ; (*i)++){
+        for(temp != '\0'; temp++){
+
+        }
+        temp++;
+        fw[(*i)] = temp;
+
+    }
+
+
     printf("idade:");
     scanf("%d",&novo->idade);
     printf("matricula:");
     scanf("%d",&novo->mat);
 
     }
+
+void sort(){
+
+    for( (*c)=1; (*c) < (*cp); (*c)++){
+        *i = (*c) - 1;
+        novo = fw + ( *cp );
+        while(( *i>0 ) && (novo->mat < (fw+( *c - 1 ))->mat ) ){
+            fw[(*i) + 1] = fw[*i];
+            (*i)-=1;
+        }
+    fw[(*i)+1] = *novo;
+    }
+}
 
 void remover(){
 	pessoa *novo;
@@ -81,13 +112,27 @@ void remover(){
 	    	}
 	    	*i = -1;
 
-	    	pBuffer = realloc ( pBuffer, sizeof(int)*3+(*cp + 1)*(sizeof(pessoa)	)	);
+            pBuffer = realloc ( pBuffer, sizeof(char)*((*n)+20) + sizeof(int)*4 + ( *cp + 1 )*( sizeof(pessoa) ) );
             c = (int*)pBuffer;
             cp =(int*)c + 1;
             i = cp + 1;
-            fw = (pessoa*)(i + 1);
+            n = i + 1
+            fw = (pessoa*)(n + 1);
+            novo = fw + ( *cp - 1 );
+            temp = (char*)novo + 1;
+            fw.nome = temp;
+
+            for(; fw[*i] != fw[*cp] ; (*i)++){
+                for(temp != '\0'; temp++){
+
+                 }
+                temp++;
+                fw[(*i)] = temp;
+
+            }
         }
 	}
+
     if(*i == -1){
         printf("retirado com sucesso!<3\n");
     }
