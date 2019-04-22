@@ -1,4 +1,4 @@
-// Nao se preocupem com isso
+
 #define RED     "\x1b[31m"
 #define GREEN   "\x1b[32m"
 #define RESET   "\x1b[0m"
@@ -17,6 +17,8 @@
 #define DEFAULT "Pais desconhecido\0"
 
 // Estruturas de dados
+
+
 struct Celula {
     char * pais;
     char * frase;
@@ -25,6 +27,9 @@ struct Celula {
 struct Dicionario {
     struct Celula letras[ALFABETO];
 };
+
+
+
 
 typedef struct Celula Celula;
 typedef struct Dicionario Dicionario;
@@ -43,28 +48,26 @@ int pesquisar(Dicionario * dicionario, char * frase) {
 
 // Inserir : insere par pais - frase no dicionario caso a primeira letra do pais esteja livre e retorna true, false caso nao insira
 bool inserir(Dicionario * dicionario, char * pais, char * frase) {
-    int t;
-    for(int i=0; i != ALFABETO; i++){
-    	if( pais[0] == OFFSET + i && dicionario->letras[i].pais == NULL ){
 
-    		t = strlen(pais);
-    		dicionario->letras[i].pais = (char*)malloc(sizeof(char)*t);
-    		strcpy( dicionario->letras[i].pais , pais );
-            /*t--;
-            for(;t!=-1 ; t-- ){
-                dicionario->letras[i].pais[t] = pais[t];
-            }*/
+    // ao invez de testar todas as letra, apenas diminuo OFFSET da primeira letra do pais, entao consigo a exta posição no alfabeto
+     int i = ((int) pais[0]) -OFFSET;
+    //for(int i=0; i != ALFABETO; i++){
+     //   if( pais[0] == OFFSET + i && dicionario->letras[i].pais == NULL ){
 
-            t = strlen(frase);
-            dicionario->letras[i].frase = (char*)malloc(sizeof(char)*t);
+            //antes, usava strlen para saber o tamanho para dar malloc, agora uso sizeof(pais)
+            dicionario->letras[i].pais = (char*)malloc(sizeof(pais));
+            strcpy( dicionario->letras[i].pais , pais );
 
-            /*for(;t!=-1 ; t-- ){
-                dicionario->letras[i].frase[t] = frase[t];
-            }*/
-    		strcpy( dicionario->letras[i].frase, frase );
-   			return true;
-   		}
-   	}
+
+            dicionario->letras[i].frase = (char*)malloc(sizeof(frase));
+
+
+            strcpy( dicionario->letras[i].frase, frase );
+       //     return true;
+      //  }
+    //}
+
+
     return false;
 }
 
@@ -78,6 +81,8 @@ char * identificar(Dicionario * dicionario, char * frase) {
                 return (dicionario->letras[i].pais);
             }
         }
+
+
     }
 
     return DEFAULT;
@@ -157,6 +162,7 @@ int main() {
 
     printf("3. Saudacao valida");
     if (strcmp(identificar(d, "Merii Kurisumasu!\0"), "japao") == 0) {
+
         printf(GREEN " PASS!\n" RESET);
     }
     else {
@@ -165,16 +171,16 @@ int main() {
 
     printf("4. Saudacao invalida");
     if (strcmp(identificar(d, "Nollaig Shona Dhuit!\0"), DEFAULT) == 0) {
+
+
         printf(GREEN " PASS!\n" RESET);
     }
     else {
         printf(RED " FAIL.\n" RESET);
     }
 
-
     //adicionada a função que liberara a memoria
     fre(d);
-
 
     return 0;
 }
