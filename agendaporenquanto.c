@@ -23,19 +23,19 @@ void inicializa(){
     fw = (pessoa*)(i + 1);
     novo = fw;
 
-    strcpy( novo->nome ,"1");
-    novo->idade = 1;
-    novo->mat = 1;
-    novo ++;
-
     strcpy( novo->nome ,"2");
     novo->idade = 2;
     novo->mat = 2;
     novo ++;
 
-    strcpy( novo->nome ,"admin");
+    strcpy( novo->nome ,"1");
     novo->idade = 1;
     novo->mat = 1;
+    novo ++;
+
+    strcpy( novo->nome ,"admin");
+    novo->idade = 0;
+    novo->mat = 0;
     novo ++;
 
     strcpy( novo->nome ,"Victor");
@@ -47,15 +47,26 @@ void inicializa(){
 
 
 void insertionSort(){
-
+    novo = fw + ( *cp );
     for( (*c)=1; (*c) < (*cp); (*c)++){
         *i = (*c) - 1;
-        novo = fw + ( *cp );
-        while(( *i>0 ) && (novo->mat < (fw+( *c - 1 ))->mat ) ){
-            fw[(*i) + 1] = fw[*i];
-            (*i)-=1;
+        //memcpy(novo,&(fw[*i]),sizeof(pessoa));
+        strcpy( novo->nome , (fw+( *c))->nome );
+        novo->mat =(fw+( *c ))->mat;
+        novo->idade =(fw+( *c ))->idade;
+
+        while(( (*i)>=0 ) && (novo->mat < ((fw+ (*i))->mat ) )){
+
+           // memcpy(&(fw[*i]), &(fw[(*i)+1]),sizeof(pessoa));
+            strcpy( (fw+( * i +1 ))->nome , (fw+( *i ))->nome );
+            (fw+( *i + 1 ))->mat =(fw+( *i ))->mat;
+            (fw+( *i + 1 ))->idade =(fw+( *i ))->idade;
+            (*i)--;
         }
-        memcpy(novo,&(fw[(*i)+1]),sizeof(pessoa));
+        //memcpy(novo,&(fw[(*i)+1]),sizeof(pessoa));
+        strcpy( (fw+( *i + 1 ))->nome, novo->nome );
+        (fw+( *i + 1))->mat= novo->mat;
+        (fw+( *i + 1))->idade = novo->idade;
     }
 }
 
@@ -77,7 +88,7 @@ void adiciona(){
     scanf("%d",&novo->mat);
 
 }
-
+// remover ta errado
 void remover(){
 	pessoa *novo;
 	novo = fw + ( *cp );
@@ -90,6 +101,8 @@ void remover(){
             (*cp)-=1;
             while( *c != *cp){
                 strcpy( (fw+( *c - 1 ))->nome , (fw+( *c ))->nome );
+                (fw+( *c - 1 ))->mat =(fw+( *c ))->mat;
+                (fw+( *c - 1 ))->idade =(fw+( *c ))->idade;
 	    		*c+=1;
 	    	}
 	    	*i = -1;
@@ -174,11 +187,11 @@ int main(){
 			case 4:
                 lista();
             break;
-            
+
             case 5:
                 insertionSort();
             break;
-            
+
             case 6:
             	free(pBuffer);
                 return 0;
