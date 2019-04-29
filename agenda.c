@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
@@ -12,12 +13,10 @@ typedef struct{
 int *c,*cp,*i,*n;
 void *pBuffer;
 pessoa *fw,*novo;
-char *name;
+char *primeiroNome;
 
 /*void inicializa(){
-
     pessoa *novo;
-
     pBuffer = malloc (sizeof(int)*4 + sizeof(char)*((*n)+20) +(5)*(sizeof(pessoa)    )	);
     c = (int*)pBuffer;
     cp =(int*)c + 1;
@@ -25,37 +24,26 @@ char *name;
     i = cp + 1;
     fw = (pessoa*)(i + 1);
     novo = fw;
-
     strcpy( novo->nome ,"1");
     novo->idade = 1;
     novo->mat = 1;
     novo ++;
-
     strcpy( novo->nome ,"2");
     novo->idade = 2;
     novo->mat = 2;
     novo ++;
-
     strcpy( novo->nome ,"admin");
     novo->idade = 1;
     novo->mat = 1;
     novo ++;
-
     strcpy( novo->nome ,"Victor");
     novo->idade = 19;
     novo->mat = 18104996;
-
 */
 
-                                                                  //pode ta errado o cp+1
-void adiciona(){
-    *cp+=1;
-    
 
-    printf("nome:");
-    scanf(" %s", *temp );
-    *n = *n + strlen( *temp );
 
+void reaponta(){
     pBuffer = realloc ( pBuffer, sizeof(char)*((*n)+20) + sizeof(int)*4 + ( *cp + 1 )*( sizeof(pessoa) ) );
     c = (int*)pBuffer;
     cp =(int*)c + 1;
@@ -63,16 +51,26 @@ void adiciona(){
     n = i + 1
     fw = (pessoa*)(n + 1);
     novo = fw + ( *cp - 1 );
-    temp = (char*)novo + 1;
-    fw.nome = temp;
+}
 
-    for(; fw[*i] != fw[*cp] ; (*i)++){
-        for(temp != '\0'; temp++){
+void adiciona(){
+    *cp+=1;
 
+
+    printf("nome:");
+    scanf(" %s", *temp );
+    *n = *n + strlen( *temp );                                       //pode ta errado o cp+1
+
+    reaponta();
+
+    temp = (char*)(novo + 1);
+    (*fw).nome = temp;
+
+    for(*i=1; *i != *cp ; (*i)++){
+        for(*temp != '\0'; temp++){}
         }
         temp++;
-        fw[(*i)] = temp;
-
+        fw[(*i)].nome = temp;
     }
 
 
@@ -83,18 +81,30 @@ void adiciona(){
 
     }
 
-void sort(){
-
+void insertionSort(){
+    novo = fw + ( *cp );
     for( (*c)=1; (*c) < (*cp); (*c)++){
         *i = (*c) - 1;
-        novo = fw + ( *cp );
-        while(( *i>0 ) && (novo->mat < (fw+( *c - 1 ))->mat ) ){
-            fw[(*i) + 1] = fw[*i];
-            (*i)-=1;
+        //memcpy(novo,&(fw[*i]),sizeof(pessoa));
+        strcpy( novo->nome , (fw+( *c))->nome );
+        novo->mat =(fw+( *c ))->mat;
+        novo->idade =(fw+( *c ))->idade;
+
+        while(( (*i)>=0 ) && (novo->mat < ((fw+ (*i))->mat ) )){
+
+           // memcpy(&(fw[*i]), &(fw[(*i)+1]),sizeof(pessoa));
+            strcpy( (fw+( * i +1 ))->nome , (fw+( *i ))->nome );
+            (fw+( *i + 1 ))->mat =(fw+( *i ))->mat;
+            (fw+( *i + 1 ))->idade =(fw+( *i ))->idade;
+            (*i)--;
         }
-    fw[(*i)+1] = *novo;
+        //memcpy(novo,&(fw[(*i)+1]),sizeof(pessoa));
+        strcpy( (fw+( *i + 1 ))->nome, novo->nome );
+        (fw+( *i + 1))->mat= novo->mat;
+        (fw+( *i + 1))->idade = novo->idade;
     }
 }
+
 
 void remover(){
 	pessoa *novo;
@@ -112,13 +122,7 @@ void remover(){
 	    	}
 	    	*i = -1;
 
-            pBuffer = realloc ( pBuffer, sizeof(char)*((*n)+20) + sizeof(int)*4 + ( *cp + 1 )*( sizeof(pessoa) ) );
-            c = (int*)pBuffer;
-            cp =(int*)c + 1;
-            i = cp + 1;
-            n = i + 1
-            fw = (pessoa*)(n + 1);
-            novo = fw + ( *cp - 1 );
+            reaponta();
             temp = (char*)novo + 1;
             fw.nome = temp;
 
@@ -207,14 +211,19 @@ int main(){
                 lista();
             break;
 
-         case 5:
+            case 5:
+                insertionSort();
+            break;
+
+            case 6:
+            	i=-1;
             	free(pBuffer);
                 return 0;
 			break;
 
 			default:
-					printf("funcao indisponivel!\n");
+                printf("funcao indisponivel!\n");
 			}
-    }while(*i != 5);
+    }while(*i != -1);
 
 }
