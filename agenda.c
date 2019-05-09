@@ -20,9 +20,11 @@ void inicializa(){
     contadorPessoa =(int*)aux + 1;
     *contadorPessoa = 4;
     menu = contadorPessoa + 1;
-    fw = (pessoa*)(menu + 1);
+    caracteres = menu +1;
+    fw = (pessoa*)(caracteres + 1);
     novo = fw;
     temp = (char*)(fw + ( *contadorPessoa ));
+    *caracteres = 20;
 
     novo->nome = temp;
     strcpy ( novo->nome ,"1");
@@ -210,7 +212,7 @@ int main(){
     inicializa();
 
   	do{
-  	    printf("-----------\n   MENU\n-----------\n(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:\n(4)lista:\n(5)sair:\n--------\n    ");
+  	    printf("-----------\n   MENU\n-----------\n(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:\n(4)lista:\n(0)sair:\n--------\n    ");
         scanf("%d",&*menu);
 
         switch(*menu){
@@ -235,7 +237,7 @@ int main(){
 //                insertionSort();
             break;
 
-            case 6:
+            case 0:
             	*menu=-1;
             	free(pBuffer);
                 return 0;
