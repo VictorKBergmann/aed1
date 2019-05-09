@@ -1,74 +1,84 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
 #include <string.h>
 
 typedef struct{
-    char nome;
+    char *nome;
     int idade, mat;
     }pessoa ;
 
-
-int *c,*contadorPessoa,*i,*n;
+int *aux,*contadorPessoa,*menu,*caracteres;
 void *pBuffer;
 pessoa *fw,*novo;
-char *primeiroNome,*temp;
-
-/*void inicializa(){
-    pessoa *novo;
-    pBuffer = malloc (sizeof(int)*4 + sizeof(char)*((*n)+20) +(5)*(sizeof(pessoa)    )	);
-    c = (int*)pBuffer;
-    cp =(int*)c + 1;
+char *temp;
+ 
+void inicializa(){
+    //cria a posicao dos ponteiros
+    pBuffer = malloc (sizeof(int)*4 + sizeof(char)*(37) +(4)*(sizeof(pessoa)    )	);
+    aux = (int*)pBuffer;
+    contadorPessoa =(int*)aux + 1;
     *contadorPessoa = 4;
-    i = cp + 1;
-    fw = (pessoa*)(i + 1);
+    menu = contadorPessoa + 1;
+    fw = (pessoa*)(menu + 1);
     novo = fw;
-    strcpy( novo->nome ,"1");
+    temp = (char*)(fw + ( *contadorPessoa ));
+
+    novo->nome = temp;
+    strcpy ( novo->nome ,"1");
     novo->idade = 1;
     novo->mat = 1;
     novo ++;
+    temp+=strlen(temp) + 1;
+
+    novo->nome = temp;
     strcpy( novo->nome ,"2");
     novo->idade = 2;
     novo->mat = 2;
     novo ++;
+    temp+=strlen(temp) + 1;
+
+    novo->nome = temp;
     strcpy( novo->nome ,"admin");
     novo->idade = 1;
     novo->mat = 1;
     novo ++;
+    temp+=strlen(temp) + 1;
+
+    novo->nome = temp;
     strcpy( novo->nome ,"Victor");
     novo->idade = 19;
     novo->mat = 18104996;
-*/
+    temp+=strlen(temp) + 1;
 
-
+}
 
 void reaponta(){
     
 	//reapontando as variaveis
-    pBuffer = realloc ( pBuffer, sizeof(char)*((*n)+20) + sizeof(int)*4 + ( *contadorPessoa ) * ( sizeof(pessoa) ) );
-    c = (int*)pBuffer;
-    contadorPessoa =(int*)c + 1;
-    i = contadorPessoa + 1;
-    n = i + 1;
-    fw = (pessoa*)(n + 1);
+    pBuffer = realloc ( pBuffer, sizeof(char)*((*caracteres)+20) + sizeof(int)*4 + ( *contadorPessoa ) * ( sizeof(pessoa) ) );
+    aux = (int*)pBuffer;
+    contadorPessoa =(int*)aux + 1;
+    menu = contadorPessoa + 1;
+    caracteres = menu + 1;
+    fw = (pessoa*)(caracteres + 1);
     novo = fw + ( *contadorPessoa - 1 );
 
     //transfere os char
     temp = (char*)novo;
-    for(*i=*n; *i > 0 ; (*i)--){
-    	*(temp + *i) = *(temp + sizeof(pessoa) + *i);
+    for(*menu=*caracteres; *menu > 0 ; (*menu)--){
+    	*(temp + *menu) = *(temp + sizeof(pessoa) + *menu);
     }
 
     //reaponta os nomes
     temp = (char*)(novo + 1);
     (fw)->nome = temp;
 
-    for(*i=1; *i != *contadorPessoa ; (*i)++){
+    for(*menu=1; *menu != *contadorPessoa ; (*menu)++){
         temp = temp + (strlen(temp) + 1);
         //for(*temp != '\0'; temp++){}
         temp++;
-        ( fw+ (*i) ) -> nome = (pessoa*)temp;
+        ( fw+ (*menu) ) -> nome = temp;
     }
 }
 
@@ -78,7 +88,7 @@ void adiciona(){
     //adiciona o nome
     printf("nome:");
     scanf(" %s", temp );
-    *n = *n + strlen( temp ) + 1; 
+    *caracteres = *caracteres + strlen( temp ) + 1; 
 
     reaponta();
 
@@ -90,39 +100,39 @@ void adiciona(){
 
     }
 
-
+/*
 void remover(){
 	pessoa *novo;
 	novo = fw + ( *contadorPessoa );
 	printf("nome:");
     scanf(" %s",novo->nome);
 
-    for(*c= 0;*c != (*contadorPessoa) && *i != -1 ; (*c)++){
+    for(*aux= 0;*aux != (*contadorPessoa) && *menu != -1 ; (*aux)++){
 
-        if(strcmp( (fw+(*c))->nome,novo->nome ) == 0 ){
+        if(strcmp( (fw+(*aux))->nome,novo->nome ) == 0 ){
             (*contadorPessoa)-=1;
-            while( *c != *contadorPessoa){
-                strcpy( (fw+( *c - 1 ))->nome , (fw+( *c ))->nome );
-	    		*c+=1;
+            while( *aux != *contadorPessoa){
+                strcpy( (fw+( *aux - 1 ))->nome , (fw+( *aux ))->nome );
+	    		*aux+=1;
 	    	}
-	    	*i = -1;
+	    	*menu = -1;
 
             reaponta();
             temp = (char*)novo + 1;
             fw.nome = temp;
 
-            for(; fw[*i] != fw[*contadorPessoa] ; (*i)++){
+            for(; fw[*menu] != fw[*contadorPessoa] ; (*menu)++){
                 for(temp != '\0'; temp++){
 
                  }
                 temp++;
-                fw[(*i)] = temp;
+                fw[(*menu)] = temp;
 
             }
         }
 	}
 
-    if(*i == -1){
+    if(*menu == -1){
         printf("retirado com sucesso!<3\n");
     }
     else{
@@ -136,21 +146,21 @@ void pesquisa(){
 	novo = fw + ( *contadorPessoa );
 	printf("\nnome que sera buscado:");
     scanf(" %s",novo->nome);
-	*i = 0;
-	for((*c)=0;(*c) != *contadorPessoa; (*c)++){
-		if (strcmp( (fw+(*c))->nome,novo->nome ) == 0 && *i == 0) {
-			printf("\nid:%d",(*c));
-			printf("\nnome:%s\n",(fw+(*c))->nome);
-			printf("idade:%d\n",(fw+(*c))->idade);
-			printf("matricula:%d\n\n",(fw+(*c))->mat);
-			*i = -1 ;
+	*menu = 0;
+	for((*aux)=0;(*aux) != *contadorPessoa; (*aux)++){
+		if (strcmp( (fw+(*aux))->nome,novo->nome ) == 0 && *menu == 0) {
+			printf("\nid:%d",(*aux));
+			printf("\nnome:%s\n",(fw+(*aux))->nome);
+			printf("idade:%d\n",(fw+(*aux))->idade);
+			printf("matricula:%d\n\n",(fw+(*aux))->mat);
+			*menu = -1 ;
 		}
 	}
-    if(*i != -1){
+    if(*menu != -1){
         printf("nome nao encontrado\n");
     }
 }
-
+*/
 
 void lista(){
 
@@ -158,62 +168,63 @@ void lista(){
     printf("nao ha nomes na lista!\n");}
 
     else{
-        for(*c=0 ; *c!=*contadorPessoa ; (*c)++ ){
-            printf("\n|id:%d",*c);
-            printf("\n|nome:%s\n",(fw+(*c))->nome);
-            printf("|idade:%d\n",(fw+(*c))->idade);
-            printf("|matricula:%d\n\n",(fw+(*c))->mat);
+        for(*aux=0 ; *aux!=*contadorPessoa ; (*aux)++ ){
+            printf("\n|id:%d",*aux);
+            printf("\n|nome:%s\n",(fw+(*aux))->nome);
+            printf("|idade:%d\n",(fw+(*aux))->idade);
+            printf("|matricula:%d\n\n",(fw+(*aux))->mat);
         }
     }
 }
-
+/*
 void insertionSort(){
     novo = fw + ( *contadorPessoa );
-    for( (*c)=1; (*c) < (*contadorPessoa); (*c)++){
-        *i = (*c) - 1;
-        //memcpy(novo,&(fw[*i]),sizeof(pessoa));
-        strcpy( novo->nome , (fw+( *c))->nome );
-        novo->mat =(fw+( *c ))->mat;
-        novo->idade =(fw+( *c ))->idade;
+    for( (*aux)=1; (*aux) < (*contadorPessoa); (*aux)++){
+        *menu = (*aux) - 1;
+        //memcpy(novo,&(fw[*menu]),sizeof(pessoa));
+        strcpy( novo->nome , (fw+( *aux))->nome );
+        novo->mat =(fw+( *aux ))->mat;
+        novo->idade =(fw+( *aux ))->idade;
 
-        while(( (*i)>=0 ) && (novo->mat < ((fw+ (*i))->mat ) )){
+        while(( (*menu)>=0 ) && (novo->mat < ((fw+ (*menu))->mat ) )){
 
-           // memcpy(&(fw[*i]), &(fw[(*i)+1]),sizeof(pessoa));
-            strcpy( (fw+( * i +1 ))->nome , (fw+( *i ))->nome );
-            (fw+( *i + 1 ))->mat =(fw+( *i ))->mat;
-            (fw+( *i + 1 ))->idade =(fw+( *i ))->idade;
-            (*i)--;
+           // memcpy(&(fw[*menu]), &(fw[(*menu)+1]),sizeof(pessoa));
+            strcpy( (fw+( * i +1 ))->nome , (fw+( *menu ))->nome );
+            (fw+( *menu + 1 ))->mat =(fw+( *menu ))->mat;
+            (fw+( *menu + 1 ))->idade =(fw+( *menu ))->idade;
+            (*menu)--;
         }
-        //memcpy(novo,&(fw[(*i)+1]),sizeof(pessoa));
-        strcpy( (fw+( *i + 1 ))->nome, novo->nome );
-        (fw+( *i + 1))->mat= novo->mat;
-        (fw+( *i + 1))->idade = novo->idade;
+        //memcpy(novo,&(fw[(*menu)+1]),sizeof(pessoa));
+        strcpy( (fw+( *menu + 1 ))->nome, novo->nome );
+        (fw+( *menu + 1))->mat= novo->mat;
+        (fw+( *menu + 1))->idade = novo->idade;
     }
 }
-
+*/
 
 
 
 int main(){
 
+
     inicializa();
 
   	do{
   	    printf("-----------\n   MENU\n-----------\n(1)adicionar a agenda:\n(2)retirar da agenda:\n(3)procurar:\n(4)lista:\n(5)sair:\n--------\n    ");
-        scanf("%d",&*i);
+        scanf("%d",&*menu);
 
-        switch(*i){
+        switch(*menu){
 
         	case 1:
                 adiciona();
             break;
 
         	case 2:
-      		    remover();
+//     		    remover();
 			break;
 
 			case 3:
-                pesquisa();
+//                pesquisa();
             break;
 
 			case 4:
@@ -221,11 +232,11 @@ int main(){
             break;
 
             case 5:
-                insertionSort();
+//                insertionSort();
             break;
 
             case 6:
-            	i=-1;
+            	*menu=-1;
             	free(pBuffer);
                 return 0;
 			break;
@@ -233,6 +244,6 @@ int main(){
 			default:
                 printf("funcao indisponivel!\n");
 			}
-    }while(*i != -1);
+    }while(*menu != -1);
 
 }
