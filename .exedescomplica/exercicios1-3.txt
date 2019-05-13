@@ -1,37 +1,6 @@
-*/
+
 	1- a ordenação tem como objetivo colocar um conjunto de elementos em ordem, ou seja, busca manter os itens em um padrão de organização previamente ditados, pelo usuario, ou programador.
 	
 	2- para encontrar o menor valor de um vetor é nescessário encontrar o valor cujo o elemento seja de menor precendência do que todos os outros valores dentro do vetor
 
 	3- um algoritimo de ordenação que busca primeiramente, o menor valor e o coloque no inicio do vetor ordenado, e o retire o vetor anterior, e repita isso até que o vetor desordenado tenha zero elementos
-
-	4- 
-
-void funcs(int vetor[], int n){
-	int i;
-	for( i=0 ; i!=n - 1  && i== -1 ; i++ ){
-		if( vetor[ i ] >= vetor[ i+1 ] ){
-			i=-1;
-		}
-	}
-	if(i!= -1){
-		for(i=0 ; i!=n ; i++ ){
-			printf("%d"vetor[i]);
-		}
-	}
-}
-
-	
-	5-
-
-Bubblesort (int data[],int n) { 
-	int tmp,i,j; 
-	for (i=0; i<n-1; i++) { 
-		for (j=0; j<n-i-1; j++) {
-			if (data[j] > data[j+1]) { 					tmp = data[j]; 
-				data[j] = data[j+1]; 
-				data[j+1] = tmp; 
-			} 
-		}
-	} 
-}
