@@ -1,13 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+int merge_sort(int a[],int p, int r);
+int merge(int *a,int p,int q, int r);
+
 int main(){
     int a[20],i;
     for(i=0; i!=20; i++){
         a[i]=rand()%500;
         printf("%d  ",a[i]);
     }
-    printf("\n\noi");
+    printf("\n");
     i=merge_sort(a,0,19);
     for(i=0; i!=20; i++){
         printf("%d  ",a[i]);
@@ -19,9 +22,7 @@ int merge_sort(int a[],int p, int r){
     int q;
     if (p<r){
         q=((p+r)/2);
-        printf("%d\n",p);
         merge_sort(a,p,q);
-        printf("%d\n",p);
         merge_sort(a,q+1,r);
         merge(a,p,q,r);
     }
