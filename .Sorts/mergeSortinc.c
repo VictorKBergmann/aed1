@@ -5,16 +5,23 @@ int merge_sort(int a[],int p, int r);
 int merge(int *a,int p,int q, int r);
 
 int main(){
-    int a[20],i;
-    for(i=0; i!=20; i++){
+    int *a,i,n=4;
+    a= malloc(sizeof (int) * (n));
+
+    for(i=0; i!=n; i++){
         a[i]=rand()%500;
         printf("%d  ",a[i]);
+
     }
     printf("\n");
-    i=merge_sort(a,0,19);
-    for(i=0; i!=20; i++){
+    
+    i=merge_sort(a,0,n-1);
+   
+    for(i=0; i!=n; i++){
         printf("%d  ",a[i]);
     }
+    
+    free(a);
     return 0 ;
 }
 
@@ -29,33 +36,34 @@ int merge_sort(int a[],int p, int r){
     return 0;
 }
 
-int merge(int *a,int p,int q, int r){
-    int n1,n2,i,j,k;
-    
-    n1 = r-p +1;
-    n2 = r-q;
-    int l[n1+1] , t[n2+1];
-    for(i=0;i!=n1;i++){
-        l[i]=a[p+i];
-    }    
-    for(i=0;i!=n2;i++){
-        t[i]=a[q+i];
+int merge(int *vetor,int inicio,int meio, int fim){
+    int p1 = inicio;
+    int p2 = meio + 1;
+    int tamanho = fim - inicio + 1;
+    int* tmp;
+    int aux;
+    tmp = (int*)malloc(sizeof(int)*tamanho);
+
+
+    for(aux = 0; aux!=tamanho ;){
+        tmp[aux++]=vetor[p1++];
     }
-    
-    l[n1]=500;
-    t[n2]=500;
-    i=0;
-    j=0;
-    
-    for(p;p!=r;p++){
-        if(l[i]<=t[j]){
-            a[p]=l[i];
-            i++;
+    p1 = 0;
+
+    for(aux = 0; p1<=meio && p2<=fim; aux++){
+        if(tmp[p1] < tmp[p2]){
+            vetor[inicio++] = tmp[p1++];
         }
-        else{
-            a[p]=t[j];
-            j++;
+        else{vetor[inicio++] = tmp[p2++];
         }
     }
-    return 0;
+            
+    while(p1<=meio){
+        vetor[inicio++] = tmp[p1++];
+    }
+    while(p2<=fim){
+        vetor[inicio++] = tmp[p2++];
+    }
+
+    free(tmp);
 }

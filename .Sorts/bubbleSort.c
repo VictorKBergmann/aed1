@@ -9,7 +9,7 @@ int main(){
     v = malloc(sizeof (int) * (n));
     
     for(i=0; i!=n; i++){
-        v[i] = 10 - i;
+        v[i]=rand()%500;
         printf("%d  ",v[i]);
 
     }
