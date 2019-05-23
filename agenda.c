@@ -69,15 +69,15 @@ void reaponta(){
     //transfere os char
     temp = (char*)novo;
     for(*menu=*caracteres; *menu > 0 ; (*menu)--){
-    	*(temp + *menu) = *(temp + sizeof(pessoa) + *menu);
+    	*(temp + sizeof(pessoa) + *menu) =	*(temp + *menu); 
     }
 
     //reaponta os nomes
     temp = (char*)(novo + 1);
     (fw)->nome = temp;
 
-    for(*menu=1; *menu != *contadorPessoa ; (*menu)++){
-        temp = temp + (strlen(temp) + 1);
+    for(*menu=0; *menu != *contadorPessoa ; (*menu)++){
+        temp = temp + (strlen(temp));
         //for(*temp != '\0'; temp++){}
         temp++;
         ( fw+ (*menu) ) -> nome = temp;
@@ -108,9 +108,7 @@ void remover(){
 	novo = fw + ( *contadorPessoa );
 	printf("nome:");
     scanf(" %s",novo->nome);
-
     for(*aux= 0;*aux != (*contadorPessoa) && *menu != -1 ; (*aux)++){
-
         if(strcmp( (fw+(*aux))->nome,novo->nome ) == 0 ){
             (*contadorPessoa)-=1;
             while( *aux != *contadorPessoa){
@@ -118,22 +116,17 @@ void remover(){
 	    		*aux+=1;
 	    	}
 	    	*menu = -1;
-
             reaponta();
             temp = (char*)novo + 1;
             fw.nome = temp;
-
             for(; fw[*menu] != fw[*contadorPessoa] ; (*menu)++){
                 for(temp != '\0'; temp++){
-
                  }
                 temp++;
                 fw[(*menu)] = temp;
-
             }
         }
 	}
-
     if(*menu == -1){
         printf("retirado com sucesso!<3\n");
     }
@@ -141,8 +134,6 @@ void remover(){
         printf("nome nao encontrado\n");
     }
 }
-
-
 void pesquisa(){
 	pessoa *novo;
 	novo = fw + ( *contadorPessoa );
@@ -187,9 +178,7 @@ void insertionSort(){
         strcpy( novo->nome , (fw+( *aux))->nome );
         novo->mat =(fw+( *aux ))->mat;
         novo->idade =(fw+( *aux ))->idade;
-
         while(( (*menu)>=0 ) && (novo->mat < ((fw+ (*menu))->mat ) )){
-
            // memcpy(&(fw[*menu]), &(fw[(*menu)+1]),sizeof(pessoa));
             strcpy( (fw+( * i +1 ))->nome , (fw+( *menu ))->nome );
             (fw+( *menu + 1 ))->mat =(fw+( *menu ))->mat;
