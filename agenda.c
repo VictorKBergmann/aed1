@@ -15,26 +15,26 @@ char *temp;
  
 void inicializa(){
     //cria a posicao dos ponteiros
-    pBuffer = malloc (sizeof(int)*4 + sizeof(char)*(37) +(4)*(sizeof(pessoa)    )	);
+    pBuffer = malloc (sizeof(int)*4 + sizeof(char)*(59) +(5)*(sizeof(pessoa)    )	);
     aux = (int*)pBuffer;
     contadorPessoa =(int*)aux + 1;
-    *contadorPessoa = 4;
+    *contadorPessoa = 5;
     menu = contadorPessoa + 1;
     caracteres = menu +1;
     fw = (pessoa*)(caracteres + 1);
     novo = fw;
     temp = (char*)(fw + ( *contadorPessoa ));
-    *caracteres = 20;
+    *caracteres = 39;
 
     novo->nome = temp;
-    strcpy ( novo->nome ,"1");
+    strcpy ( novo->nome ,"Abigail");
     novo->idade = 1;
     novo->mat = 1;
     novo ++;
     temp+=strlen(temp) + 1;
 
     novo->nome = temp;
-    strcpy( novo->nome ,"2");
+    strcpy( novo->nome ,"Beatriz");
     novo->idade = 2;
     novo->mat = 2;
     novo ++;
@@ -46,7 +46,15 @@ void inicializa(){
     novo->mat = 1;
     novo ++;
     temp+=strlen(temp) + 1;
-
+  
+    novo->nome = temp;
+    strcpy( novo->nome ,"Guilherme");
+    novo->idade = 20;
+    novo->mat = 18100370;
+    temp+=strlen(temp) + 1;
+    
+	lista();
+	    
     novo->nome = temp;
     strcpy( novo->nome ,"Victor");
     novo->idade = 19;
@@ -68,7 +76,7 @@ void reaponta(){
 
     //transfere os char
     temp = (char*)novo;
-    for(*menu=*caracteres; *menu > 0 ; (*menu)--){
+    for(*menu=*caracteres ; *menu > 0 ; (*menu)--){
     	*(temp + sizeof(pessoa) + *menu) =	*(temp + *menu); 
     }
 
