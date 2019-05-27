@@ -144,18 +144,18 @@ void remover(){
 */
 void pesquisa(){
 	printf("\nnome que sera buscado:");
-    scanf(" %s",novo->nome);
+    scanf(" %s", temp );
 	*menu = 0;
 	for((*aux)=0;(*aux) != *contadorPessoa; (*aux)++){
-		if (strcmp( (fw+(*aux))->nome,novo->nome ) == 0 && *menu == 0) {
+		if (strcmp( (fw+(*aux))->nome,temp ) == 0 && *menu == 0) {
 			printf("\nid:%d",(*aux));
 			printf("\nnome:%s\n",(fw+(*aux))->nome);
 			printf("idade:%d\n",(fw+(*aux))->idade);
 			printf("matricula:%d\n\n",(fw+(*aux))->mat);
-			*menu = -1 ;
+			*menu = -2 ;
 		}
 	}
-    if(*menu != -1){
+    if(*menu != -2){
         printf("nome nao encontrado\n");
     }
 }
@@ -244,5 +244,4 @@ int main(){
                 printf("funcao indisponivel!\n");
 			}
     }while(*menu != -1);
-
 }
