@@ -12,7 +12,7 @@ int *aux,*contadorPessoa,*menu,*caracteres;
 void *pBuffer;
 pessoa *fw,*novo;
 char *temp;
- 
+
 void inicializa(){
     //cria a posicao dos ponteiros
     pBuffer = malloc (sizeof(int)*4 + sizeof(char)*(59) +(5)*(sizeof(pessoa)    )	);
@@ -46,15 +46,14 @@ void inicializa(){
     novo->mat = 1;
     novo ++;
     temp+=strlen(temp) + 1;
-  
+
     novo->nome = temp;
     strcpy( novo->nome ,"Guilherme");
     novo->idade = 20;
     novo->mat = 18100370;
+    novo ++;
     temp+=strlen(temp) + 1;
-    
-	lista();
-	    
+
     novo->nome = temp;
     strcpy( novo->nome ,"Victor");
     novo->idade = 19;
@@ -64,7 +63,7 @@ void inicializa(){
 }
 
 void reaponta(){
-    
+
 	//reapontando as variaveis
     pBuffer = realloc ( pBuffer, sizeof(char)*((*caracteres)+20) + sizeof(int)*4 + ( *contadorPessoa ) * ( sizeof(pessoa) ) );
     aux = (int*)pBuffer;
@@ -75,20 +74,20 @@ void reaponta(){
     novo = fw + ( *contadorPessoa - 1 );
 
     //transfere os char
-    temp = (char*)novo;
-    for(*menu=*caracteres ; *menu > 0 ; (*menu)--){
-    	*(temp + sizeof(pessoa) + *menu) =	*(temp + *menu); 
+    temp = (char*)(novo);
+    for(*menu=*caracteres-1 ; *menu >= 0 ; (*menu)--){
+    	*(temp + sizeof(pessoa) + *menu) =	*(temp + *menu);
     }
 
     //reaponta os nomes
-    temp = (char*)(novo + 1);
-    (fw)->nome = temp;
+    temp = temp+(sizeof(pessoa));
+    temp = fw + ( *contadorPessoa );
 
-    for(*menu=0; *menu != *contadorPessoa ; (*menu)++){
-        temp = temp + (strlen(temp));
-        //for(*temp != '\0'; temp++){}
-        temp++;
+
+    for(*menu=0; *menu < *contadorPessoa ; (*menu)++){
         ( fw+ (*menu) ) -> nome = temp;
+        temp = temp + (strlen(temp));
+        temp++;
     }
 }
 
@@ -98,7 +97,7 @@ void adiciona(){
     //adiciona o nome
     printf("nome:");
     scanf(" %s", temp );
-    *caracteres = *caracteres + strlen( temp ) + 1; 
+    *caracteres = *caracteres + strlen( temp ) + 1;
 
     reaponta();
 
@@ -142,9 +141,8 @@ void remover(){
         printf("nome nao encontrado\n");
     }
 }
+*/
 void pesquisa(){
-	pessoa *novo;
-	novo = fw + ( *contadorPessoa );
 	printf("\nnome que sera buscado:");
     scanf(" %s",novo->nome);
 	*menu = 0;
@@ -161,7 +159,7 @@ void pesquisa(){
         printf("nome nao encontrado\n");
     }
 }
-*/
+
 
 void lista(){
 
@@ -169,6 +167,8 @@ void lista(){
     printf("nao ha nomes na lista!\n");}
 
     else{
+        printf("contador de pessoas:%d\n",*contadorPessoa);
+        printf("contador de caracteres:%d\n",*caracteres);
         for(*aux=0 ; *aux!=*contadorPessoa ; (*aux)++ ){
             printf("\n|id:%d",*aux);
             printf("\n|nome:%s\n",(fw+(*aux))->nome);
@@ -223,7 +223,7 @@ int main(){
 			break;
 
 			case 3:
-//                pesquisa();
+                pesquisa();
             break;
 
 			case 4:
