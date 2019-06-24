@@ -8,7 +8,7 @@ typedef struct Registro{
 typedef struct No{
     Registro Reg;
     Apontador rigth,left,parent;
-    
+
 }No;
 
 int conta(No**node){
@@ -22,15 +22,14 @@ int contaNos(No**node){
     int a=0;
     if((*node)->left != NULL)a +=contaNos(&(*node)->left);
     if((*node)->rigth != NULL)a +=contaNos(&(*node)->rigth);
-
-    return a;
+    if((*node)->rigth != NULL || (*node)->left != NULL) a++;
+    return a++;
 }
 int contaFolhas(No**node){
     int a=0;
-    if((*node)->left == NULL)a +=contaFolhas(&(*node)->left);
-    else a++;
-    if((*node)->rigth == NULL)a +=contaFolhas(&(*node)->rigth);
-    else a++;
+    if((*node)->left != NULL)a +=contaFolhas(&(*node)->left);
+    if((*node)->rigth != NULL)a +=contaFolhas(&(*node)->rigth);
+    if((*node)->rigth == NULL && (*node)->left == NULL) a++;
 
     return a;
 }
@@ -52,21 +51,22 @@ No* procuraImpar(No**node){
         if(procuraImpar(&(*node)->rigth)!=NULL)return *node;
     return NULL;
 }
-void insere(No**node,int num){
+void insere(No** node, int num){
     if(*node==NULL){
         *node=(No*)malloc(sizeof(No));
         (*node)->Reg.data = num;
         (*node)->rigth = NULL;
         (*node)->left = NULL;
-        return; 
+        return;
 	}
     else if((*node)->Reg.data >num){
             insere(&(*node)->left,num);
             return;
 	}
-        else
+        else{
             insere(&(*node)->rigth,num);
             return;
+        }
 }
 void inicializa(No**node){
     insere(&(*node),10);
@@ -75,33 +75,44 @@ void inicializa(No**node){
     insere(&(*node),4);
     insere(&(*node),11);
     insere(&(*node),1);
+    insere(&(*node),8);
+    insere(&(*node),9);
 
 }
-
 No** parent(No**node){
     return &((*node)->parent);
 }
-
 No** grandparent(No**node){
     return &((*node)->parent->parent);
 }
-
-
-
 void printa(No* node,int i){
     int t=i;
     for(;t!=0;t--)
         printf("    ");
-    printf("%d",(*node).Reg.data);
+    printf("%d\n",(*node).Reg.data);
     if((*node).left != NULL)printa((*node).left,i+1);
     if((*node).rigth!= NULL)printa((*node).rigth,i+1);
 
     return;
 }
+int fb(No**node){
+if(*node==NULL) return 0;
+
+return altura(&(*node)->left)-altura(&(*node)->rigth);
+}
 
 int main(){
-    No** raiz;
+    No** raiz=NULL;
+    raiz = (No**)malloc(sizeof(No*));
+    *raiz = NULL;
     inicializa(raiz);
     printa(*raiz,0);
+    printf("\naltura = %d",altura(raiz));
+    printf("\ntotal  = %d",conta(raiz));
+    printf("\nnos    = %d",contaNos(raiz));
+    printf("\nfolhas = %d",contaFolhas(raiz));
+    printf("\nfb     = %d",fb(raiz));
+
     return 0;
     }
+
