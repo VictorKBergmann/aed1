@@ -11,6 +11,13 @@ typedef struct No{
 
 }No;
 
+void esquerda(No**node){
+    No* aux;
+    aux = (*node)->rigth;
+    (*node)->rigth = aux->left;
+    aux->rigth = &(*node); 
+    **(node) = *aux;
+
 int conta(No**node){
     int a=1;
     if((*node)->left != NULL)a +=conta(&(*node)->left);
