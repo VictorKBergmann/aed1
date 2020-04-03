@@ -12,29 +12,29 @@ int *aux,*contadorPessoa,*menu,*caracteres;
 void *pBuffer;
 pessoa *fw,*novo;
 char *temp;
- 
+
 void inicializa(){
     //cria a posicao dos ponteiros
-    pBuffer = malloc (sizeof(int)*4 + sizeof(char)*(37) +(4)*(sizeof(pessoa)    )	);
+    pBuffer = malloc (sizeof(int)*4 + sizeof(char)*(59) +(5)*(sizeof(pessoa)    )	);
     aux = (int*)pBuffer;
     contadorPessoa =(int*)aux + 1;
-    *contadorPessoa = 4;
+    *contadorPessoa = 5;
     menu = contadorPessoa + 1;
     caracteres = menu +1;
     fw = (pessoa*)(caracteres + 1);
     novo = fw;
     temp = (char*)(fw + ( *contadorPessoa ));
-    *caracteres = 20;
+    *caracteres = 39;
 
     novo->nome = temp;
-    strcpy ( novo->nome ,"1");
+    strcpy ( novo->nome ,"Abigail");
     novo->idade = 1;
     novo->mat = 1;
     novo ++;
     temp+=strlen(temp) + 1;
 
     novo->nome = temp;
-    strcpy( novo->nome ,"2");
+    strcpy( novo->nome ,"Beatriz");
     novo->idade = 2;
     novo->mat = 2;
     novo ++;
@@ -48,6 +48,13 @@ void inicializa(){
     temp+=strlen(temp) + 1;
 
     novo->nome = temp;
+    strcpy( novo->nome ,"Guilherme");
+    novo->idade = 20;
+    novo->mat = 18100370;
+    novo ++;
+    temp+=strlen(temp) + 1;
+
+    novo->nome = temp;
     strcpy( novo->nome ,"Victor");
     novo->idade = 19;
     novo->mat = 18104996;
@@ -56,7 +63,7 @@ void inicializa(){
 }
 
 void reaponta(){
-    
+
 	//reapontando as variaveis
     pBuffer = realloc ( pBuffer, sizeof(char)*((*caracteres)+20) + sizeof(int)*4 + ( *contadorPessoa ) * ( sizeof(pessoa) ) );
     aux = (int*)pBuffer;
@@ -67,20 +74,20 @@ void reaponta(){
     novo = fw + ( *contadorPessoa - 1 );
 
     //transfere os char
-    temp = (char*)novo;
-    for(*menu=*caracteres; *menu > 0 ; (*menu)--){
-    	*(temp + sizeof(pessoa) + *menu) =	*(temp + *menu); 
+    temp = (char*)(novo);
+    for(*menu=*caracteres-1 ; *menu >= 0 ; (*menu)--){
+    	*(temp + sizeof(pessoa) + *menu) =	*(temp + *menu);
     }
 
     //reaponta os nomes
-    temp = (char*)(novo + 1);
-    (fw)->nome = temp;
+    temp = temp+(sizeof(pessoa));
+    temp = fw + ( *contadorPessoa );
 
-    for(*menu=0; *menu != *contadorPessoa ; (*menu)++){
-        temp = temp + (strlen(temp));
-        //for(*temp != '\0'; temp++){}
-        temp++;
+
+    for(*menu=0; *menu < *contadorPessoa ; (*menu)++){
         ( fw+ (*menu) ) -> nome = temp;
+        temp = temp + (strlen(temp));
+        temp++;
     }
 }
 
@@ -90,7 +97,7 @@ void adiciona(){
     //adiciona o nome
     printf("nome:");
     scanf(" %s", temp );
-    *caracteres = *caracteres + strlen( temp ) + 1; 
+    *caracteres = *caracteres + strlen( temp ) + 1;
 
     reaponta();
 
@@ -134,26 +141,25 @@ void remover(){
         printf("nome nao encontrado\n");
     }
 }
+*/
 void pesquisa(){
-	pessoa *novo;
-	novo = fw + ( *contadorPessoa );
 	printf("\nnome que sera buscado:");
-    scanf(" %s",novo->nome);
+    scanf(" %s", temp );
 	*menu = 0;
 	for((*aux)=0;(*aux) != *contadorPessoa; (*aux)++){
-		if (strcmp( (fw+(*aux))->nome,novo->nome ) == 0 && *menu == 0) {
+		if (strcmp( (fw+(*aux))->nome,temp ) == 0 && *menu == 0) {
 			printf("\nid:%d",(*aux));
 			printf("\nnome:%s\n",(fw+(*aux))->nome);
 			printf("idade:%d\n",(fw+(*aux))->idade);
 			printf("matricula:%d\n\n",(fw+(*aux))->mat);
-			*menu = -1 ;
+			*menu = -2 ;
 		}
 	}
-    if(*menu != -1){
+    if(*menu != -2){
         printf("nome nao encontrado\n");
     }
 }
-*/
+
 
 void lista(){
 
@@ -161,6 +167,8 @@ void lista(){
     printf("nao ha nomes na lista!\n");}
 
     else{
+        printf("contador de pessoas:%d\n",*contadorPessoa);
+        printf("contador de caracteres:%d\n",*caracteres);
         for(*aux=0 ; *aux!=*contadorPessoa ; (*aux)++ ){
             printf("\n|id:%d",*aux);
             printf("\n|nome:%s\n",(fw+(*aux))->nome);
@@ -215,7 +223,7 @@ int main(){
 			break;
 
 			case 3:
-//                pesquisa();
+                pesquisa();
             break;
 
 			case 4:
@@ -236,5 +244,4 @@ int main(){
                 printf("funcao indisponivel!\n");
 			}
     }while(*menu != -1);
-
 }
